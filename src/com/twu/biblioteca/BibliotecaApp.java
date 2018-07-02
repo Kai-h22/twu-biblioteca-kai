@@ -6,6 +6,6 @@ public class BibliotecaApp {
 
         System.out.print("Welcome to Biblioteca!\n");
 
-        System.out.print();
+        System.out.print("");
     }
 }
