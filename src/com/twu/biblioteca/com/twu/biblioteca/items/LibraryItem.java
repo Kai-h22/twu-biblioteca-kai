@@ -1,4 +1,4 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.com.twu.biblioteca.items;
 
 import java.util.GregorianCalendar;
 import java.util.UUID;
@@ -6,7 +6,7 @@ import java.util.UUID;
 /**
  * Created by Kai on 7/2/2018.
  */
-public class LibraryItem {
+public abstract class LibraryItem {
 
     private boolean checkedOut;
     private GregorianCalendar dueDate;

@@ -1,4 +1,4 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.com.twu.biblioteca.items;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -6,7 +6,7 @@ import java.util.GregorianCalendar;
 /**
  * Created by Kai on 7/3/2018.
  */
-public class Book extends LibraryItem implements SystemItem{
+public class Book extends LibraryItem implements SystemItem {
 
     private String name;
     private String author;
