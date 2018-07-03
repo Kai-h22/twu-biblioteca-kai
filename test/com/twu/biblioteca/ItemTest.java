@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.com.twu.biblioteca.items.Book;
 import com.twu.biblioteca.com.twu.biblioteca.items.LibraryItem;
 import com.twu.biblioteca.com.twu.biblioteca.items.Materials;
 import org.junit.Test;
@@ -15,7 +16,8 @@ import static org.junit.Assert.assertEquals;
  */
 public class ItemTest {
 
-    private LibraryItem item = new LibraryItem(Materials.BOOK);
+//    private LibraryItem item = new LibraryItem(Materials.BOOK);
+    private LibraryItem item = new Book("Pretty Monsters", "Jack Schez", "1990");
 
     @Test
     public void checkedOutTest(){
