@@ -29,6 +29,10 @@ public class LibraryItem {
         return this.dueDate;
     }
 
+    public void setDueDate(GregorianCalendar date){
+        this.dueDate = date;
+    }
+
     public Materials getType() {
         return this.type;
     }
