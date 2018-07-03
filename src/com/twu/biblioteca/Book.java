@@ -26,4 +26,16 @@ public class Book extends LibraryItem implements SystemItem{
         this.setDueDate(date);
         return date;
     }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getAuthor() {
+        return this.author;
+    }
+
+    public String getPub() {
+        return this.year;
+    }
 }
