@@ -36,8 +36,23 @@ public class MainScreenTest {
     }
 
     @Test
-    public void meniTest(){
+    public void listBookTest(){
         app.main(args);
         assertEquals("Welcome to Biblioteca!\n", printValue.toString());
+    }
+
+    @Test
+    public void returnWithIDTest(){
+
+    }
+
+    @Test
+    public void returnWithNameTest(){
+
+    }
+
+    @Test
+    public void returnWithNameMultiTest(){
+
     }
 }

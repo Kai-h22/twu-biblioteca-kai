@@ -25,17 +25,20 @@ public class Library {
         return books;
     }
 
-    public void returnBook(){
-        Scanner userInput = new Scanner(System.in);
-        String returning = userInput.next();
-        books.forEach(x -> {
-            if (x.getCheckoutID().equals(returning)){
-                x.checkin();
-                System.out.println("You have successfully checked in " + x.getName());
+    public void returnBook(String returning){
+        for (Book book : books){
+            if (book.getCheckoutID().equals(returning)){
+                book.checkin();
+                System.out.println("\nYou have successfully checked in " + book.getName() + "(ID: "
+                        + book.getCheckoutID() + ")");
                 return;
             }
-        });
+        }
         System.out.println("Id not Found. Please Try again.");
+
+    }
+
+    public void returnWithName(String name){
 
     }
 }
