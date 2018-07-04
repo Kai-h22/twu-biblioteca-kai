@@ -55,5 +55,9 @@ public class LibraryItem {
     public void checkin(){
         this.checkedOut = false;
         this.dueDate = new GregorianCalendar();
-    };
+    }
+
+    public void checkoutItem(){
+        this.checkedOut = true;
+    }
 }

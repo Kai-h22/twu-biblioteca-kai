@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.com.twu.biblioteca.items.Book;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -17,14 +18,17 @@ public class LibraryTest {
     public Library newLibrary = new Library();
     public ArrayList<Book> books = new ArrayList<Book>();
 
-
-    @Test
-    public void listTest(){
+    @Before
+    public void setup(){
         books.add(new Book("Pretty Monsters", "Jack Schez", "1990"));
         books.add(new Book("Slurp", "Wahzoo Film", "1992"));
         books.add(new Book("Slurp", "Wahzoo Film", "2003"));
         books.add(new Book("Washer", "Jim Slack", "1890"));
         books.add(new Book("Washer", "TKO", "1830"));
+    }
+
+    @Test
+    public void listTest(){
         ArrayList<Book> libraryBooks = newLibrary.getBooks();
 
         for (int i = 0; i < books.size(); i++){
@@ -36,17 +40,31 @@ public class LibraryTest {
     }
 
     @Test
-    public void returnTest(){
-        Book returning = books.get(0);
+    public void returnWithIdTest(){
+        Book returning = newLibrary.getBooks().get(0);
         returning.checkout();
         assertEquals(true, returning.isCheckedout());
-        newLibrary.returnBook();
-
-        String input = "6f1c908a";
+        String input = returning.getCheckoutID();
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
-
+        newLibrary.returnBook();
         assertEquals(false, returning.isCheckedout() );
+
+    }
+
+    @Test
+    public void returnWithIdMultipleTest(){
+
+    }
+
+    @Test
+    public void returnWithNameTest(){
+
+    }
+
+    @Test
+
+    public void returnWithNameMultipleTest(){
 
     }
 }

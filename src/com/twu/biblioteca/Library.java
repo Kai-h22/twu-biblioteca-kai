@@ -4,6 +4,7 @@ import com.twu.biblioteca.com.twu.biblioteca.items.Book;
 import com.twu.biblioteca.com.twu.biblioteca.items.LibraryItem;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Created by Kai on 7/3/2018.
@@ -25,13 +26,16 @@ public class Library {
     }
 
     public void returnBook(){
-        String returning = null;
-
+        Scanner userInput = new Scanner(System.in);
+        String returning = userInput.next();
         books.forEach(x -> {
-            if (x.getName().equals(returning)){
+            if (x.getCheckoutID().equals(returning)){
                 x.checkin();
+                System.out.println("You have successfully checked in " + x.getName());
+                return;
             }
         });
+        System.out.println("Id not Found. Please Try again.");
 
     }
 }

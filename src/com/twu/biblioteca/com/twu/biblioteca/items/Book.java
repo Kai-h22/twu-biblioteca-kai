@@ -26,7 +26,8 @@ public class Book extends LibraryItem implements SystemItem {
         this.setDueDate(date);
         System.out.print("You have succefully checked out: " +
                 this.name + " by " + this.author + " Published " + this.year + "\n");
-        System.out.print("\tBelow is the book ID, please save this for book return: \n\t\t" + getCheckoutID());
+        System.out.print("\tBelow is the book ID, please save this for book return: \n\t\t" + getCheckoutID() + '\n');
+        this.checkoutItem();
         return date;
     }
 
