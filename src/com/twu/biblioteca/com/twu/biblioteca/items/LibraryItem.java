@@ -6,7 +6,7 @@ import java.util.UUID;
 /**
  * Created by Kai on 7/2/2018.
  */
-public abstract class LibraryItem {
+public class LibraryItem {
 
     private boolean checkedOut;
     private GregorianCalendar dueDate;
@@ -38,10 +38,22 @@ public abstract class LibraryItem {
     }
 
     public UUID getID() {
+
         return this.id;
+    }
+
+    public String getCheckoutID(){
+        String id = this.id.toString();
+        String[] values = id.split("-");
+        return values[0];
     }
 
     public void changeID(UUID id){
         this.id = id;
     }
+
+    public void checkin(){
+        this.checkedOut = false;
+        this.dueDate = new GregorianCalendar();
+    };
 }
