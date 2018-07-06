@@ -4,6 +4,7 @@ import com.twu.biblioteca.com.twu.biblioteca.items.Book;
 import com.twu.biblioteca.com.twu.biblioteca.items.LibraryItem;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Scanner;
 
 /**
@@ -58,19 +59,20 @@ public class Library {
             }
         }
         if (found.size() > 1){
-            System.out.println("Here are the books found, please select your book by typing the number ");
+            System.out.println("Here are the items found, please select your book by typing the number of the book");
             int count = 1;
             System.out.println("#  Name   Author   Author    Pub. Year    Due Date");
             for (Book bk : found){
                 System.out.println(Integer.toString(count) +":  " + bk.getName()
-                        + "    " + bk.getAuthor() + "    " + bk.getPub()+
-                "    " + bk.getDueDate().toString());
+                        + "    " + bk.getAuthor() + "       " + bk.getPub()+
+                "      " + bk.getDueDate().get(Calendar.MONTH) + "/" + bk.getDueDate().get(Calendar.DAY_OF_MONTH) + "/"+
+                        bk.getDueDate().get(Calendar.YEAR));
                 count++;
             }
             Scanner usrIn = new Scanner(System.in);
             Integer select = usrIn.nextInt();
             Book foundRtn = found.get(select -1);
-            foundRtn.checkout();
+            foundRtn.checkin();
             System.out.println("\nYou have successfully checked in " + foundRtn.getName() + "(ID: "
                     + foundRtn.getCheckoutID() + ")");
             return;
@@ -81,7 +83,7 @@ public class Library {
         }
         else{
             Book toReturn = found.get(0);
-            toReturn.checkout();
+            toReturn.checkin();
             System.out.println("\nYou have successfully checked in " + toReturn.getName() + "(ID: "
                     + toReturn.getCheckoutID() + ")");
             return;

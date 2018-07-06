@@ -39,5 +39,39 @@ public class LibraryTest {
         }
     }
 
+    @Test
+    public void returnWithIdTest(){
+
+        Book returning = newLibrary.getBooks().get(0);
+        returning.checkout();
+        assertEquals(true, returning.isCheckedout());
+        newLibrary.returnBook(returning.getCheckoutID());
+        assertEquals(false, returning.isCheckedout() );
+
+    }
+
+
+    @Test
+    public void returnWithNameTest(){
+        Book returning = newLibrary.getBooks().get(0);
+        returning.checkout();
+        assertEquals(true, returning.isCheckedout());
+        newLibrary.returnWithName(returning.getName());
+        assertEquals(false, returning.isCheckedout() );
+    }
+
+    @Test
+    public void returnWithMultipleNameTest(){
+        Book returning = newLibrary.getBooks().get(1);
+        Book returning2 = newLibrary.getBooks().get(2);
+        returning.checkout();
+        returning2.checkout();
+        String input =  "1";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        newLibrary.returnWithName(returning.getName());
+        assertEquals(false, returning.isCheckedout() );
+    }
+
 
 }
