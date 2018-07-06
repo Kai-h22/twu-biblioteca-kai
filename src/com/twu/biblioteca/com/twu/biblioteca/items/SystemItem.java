@@ -8,4 +8,6 @@ import java.util.GregorianCalendar;
 public interface SystemItem {
 
     public GregorianCalendar checkout();
+
+    public String toString();
 }

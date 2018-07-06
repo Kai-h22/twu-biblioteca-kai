@@ -20,6 +20,11 @@ public class Book extends LibraryItem implements SystemItem {
     }
 
     @Override
+    public String toString(){
+        return name + "     " + author + "     " + year;
+    }
+
+    @Override
     public GregorianCalendar checkout() {
         GregorianCalendar date = new GregorianCalendar();
         date.roll(Calendar.DATE, 7);

@@ -39,35 +39,5 @@ public class LibraryTest {
         }
     }
 
-    @Test
-    public void returnWithIdTest(){
-        Book returning = newLibrary.getBooks().get(0);
-        returning.checkout();
-        assertEquals(true, returning.isCheckedout());
-        String input = returning.getCheckoutID();
-        InputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
-        newLibrary.returnBook();
-        assertEquals(false, returning.isCheckedout() );
 
-    }
-
-
-    @Test
-    public void returnWithNameTest(){
-        Book returning = newLibrary.getBooks().get(0);
-        returning.checkout();
-        assertEquals(true, returning.isCheckedout());
-        String input = "no";
-        InputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
-        newLibrary.returnBook();
-        assertEquals(false, returning.isCheckedout() );
-    }
-
-    @Test
-
-    public void returnWithNameMultipleTest(){
-
-    }
 }
