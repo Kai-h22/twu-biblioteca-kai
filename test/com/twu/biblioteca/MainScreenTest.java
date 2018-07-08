@@ -79,7 +79,7 @@ public class MainScreenTest {
 //        String input2 = returning.getName();
 //        InputStream in2 = new ByteArrayInputStream(input2.getBytes());
 //        System.setIn(in2);
-////        app.returnBook();
+////        app.returnWithID();
 //        assertEquals(false, returning.isCheckedout() );
 //    }
 

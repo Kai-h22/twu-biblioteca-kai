@@ -12,15 +12,21 @@ public class LibraryItem {
     private GregorianCalendar dueDate;
     private Materials type;
     private UUID id;
+    private String name;
 
 
-    public LibraryItem(Materials type){
+    public LibraryItem(Materials type, String name){
         this.type = type;
         checkedOut = false;
         dueDate = new GregorianCalendar();
         id = UUID.randomUUID();
-
+        this.name = name;
     }
+
+    public String getName() {
+        return this.name;
+    }
+
     public boolean isCheckedout() {
         return this.checkedOut;
     }

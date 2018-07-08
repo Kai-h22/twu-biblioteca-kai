@@ -11,16 +11,20 @@ public class BibliotecaApp {
         Boolean running = true;
         while (running){
             System.out.print("Welcome to Biblioteca!\n");
-            System.out.print("What would you like to do?\n list books(L)  return books(R)  quit(Q)");
-            System.out.print("Type the letter of your selected choice: ");
+            System.out.print("What would you like to do?\n Type the letter of your selected choice\n \tlist books(L)  quit(Q)\n");
+            System.out.print("Selection: ");
 
-            String selection = userInput.next();
+            String selection = userInput.nextLine();
 
             if (selection.equalsIgnoreCase("L")){
                 listBooks();
             }
-            else if (selection.equalsIgnoreCase("R")){
-                returnBook();
+
+            else if (selection.equalsIgnoreCase("q")){
+                running = false;
+            }
+            else {
+                System.out.println("Select a valid option!");
             }
         }
     }
@@ -30,33 +34,44 @@ public class BibliotecaApp {
                 " find the id, type no");
         System.out.print("ID: ");
 
-        String returning = userInput.next();
+        String returning = userInput.nextLine();
 
         if (returning.equalsIgnoreCase("no")){
             System.out.print("Please Type Book Name: ");
-            String name = userInput.next();
+            String name = userInput.nextLine();
             library.returnWithName(name);
         }
         else{
-            library.returnBook(returning);
+            library.returnWithID(returning);
         }
     }
 
     private static void listBooks() {
         Boolean booking = true;
-        library.listBooks();
-
         while (booking){
-            System.out.print("\n What Would you like to do?  Checkout(C)  Quit(Q)");
-            String bSelection = userInput.next();
+            library.listBooks();
+            System.out.print("\nWhat Would you like to do?\n\tCheckout(C)  return books(R)  Quit(Q)\n");
+            System.out.print("Selection: ");
+            String bSelection = userInput.nextLine();
             if (bSelection.equalsIgnoreCase("C")){
                 checkoutBook();
+            }
+            else if (bSelection.equalsIgnoreCase("R")){
+                returnBook();
+            }
+            else if (bSelection.equalsIgnoreCase("q")){
+                booking = false;
+            }
+            else {
+                System.out.println("Select a valid option!");
             }
         }
     }
 
     private static void checkoutBook() {
-        System.out.print("What book would you like to check out?\n Name: ");
-        String checkout = userInput.next();
+        System.out.print("What book would you like to check out?\nNmae: ");
+        String checkout = userInput.nextLine();
+        library.checkoutItem(checkout);
+        return;
     }
 }

@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.com.twu.biblioteca.items.Book;
+import com.twu.biblioteca.com.twu.biblioteca.items.LibraryItem;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,24 +29,25 @@ public class LibraryTest {
     }
 
     @Test
-    public void listTest(){
-        ArrayList<Book> libraryBooks = newLibrary.getBooks();
-
+    public void listBooksTest(){
+        ArrayList<LibraryItem> libraryBooks = newLibrary.getBooks();
+        newLibrary.listBooks();
         for (int i = 0; i < books.size(); i++){
-            System.out.println(books.get(i).getID());
-            assertEquals(books.get(i).getAuthor(), libraryBooks.get(i).getAuthor());
-            assertEquals(books.get(i).getName(), libraryBooks.get(i).getName());
-            assertEquals(books.get(i).getPub(), libraryBooks.get(i).getPub());
+//            System.out.println(books.get(i).getID());
+            Book item = (Book) libraryBooks.get(i);
+            assertEquals(books.get(i).getAuthor(), item.getAuthor());
+            assertEquals(books.get(i).getName(), item.getName());
+            assertEquals(books.get(i).getPub(), item.getPub());
         }
     }
 
     @Test
     public void returnWithIdTest(){
 
-        Book returning = newLibrary.getBooks().get(0);
+        Book returning = (Book) newLibrary.getBooks().get(0);
         returning.checkout();
         assertEquals(true, returning.isCheckedout());
-        newLibrary.returnBook(returning.getCheckoutID());
+        newLibrary.returnWithID(returning.getCheckoutID());
         assertEquals(false, returning.isCheckedout() );
 
     }
@@ -53,7 +55,7 @@ public class LibraryTest {
 
     @Test
     public void returnWithNameTest(){
-        Book returning = newLibrary.getBooks().get(0);
+        Book returning = (Book) newLibrary.getBooks().get(0);
         returning.checkout();
         assertEquals(true, returning.isCheckedout());
         newLibrary.returnWithName(returning.getName());
@@ -62,8 +64,8 @@ public class LibraryTest {
 
     @Test
     public void returnWithMultipleNameTest(){
-        Book returning = newLibrary.getBooks().get(1);
-        Book returning2 = newLibrary.getBooks().get(2);
+        Book returning = (Book) newLibrary.getBooks().get(1);
+        Book returning2 = (Book) newLibrary.getBooks().get(2);
         returning.checkout();
         returning2.checkout();
         String input =  "1";

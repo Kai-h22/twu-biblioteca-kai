@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class ItemTest {
 
-    private LibraryItem item = new LibraryItem(Materials.BOOK);
+    private LibraryItem item = new LibraryItem(Materials.BOOK, "Pretty Monsters");
 //    private LibraryItem item = new Book("Pretty Monsters", "Jack Schez", "1990");
 
     @Test
