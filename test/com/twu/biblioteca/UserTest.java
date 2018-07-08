@@ -28,7 +28,23 @@ public class UserTest {
 
     }
 
-    
+    @Test
+    public void infoTest(){
+        testUser.setName("Jackie Willams");
+        testUser.setEmail("washer12@gmail.com");
+        testUser.setPhone("678-234-1234");
+        assertEquals("Jackie Willams", testUser.getName());
+        assertEquals("washer12@gmail.com", testUser.getEmail());
+        assertEquals("678-234-1234", testUser.getPhone());
+
+        assertEquals(false, testUser.setEmail("washer12@.com"));
+        assertEquals(false, testUser.setPhone("68-234-1234"));
+    }
+
+    @Test
+    public void numTest(){
+        assertEquals("123-1234", testUser.getLibNum());
+    }
 
 
 }

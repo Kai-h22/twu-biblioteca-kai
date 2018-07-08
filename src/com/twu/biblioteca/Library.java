@@ -3,6 +3,7 @@ package com.twu.biblioteca;
 import com.twu.biblioteca.com.twu.biblioteca.items.Book;
 import com.twu.biblioteca.com.twu.biblioteca.items.LibraryItem;
 import com.twu.biblioteca.com.twu.biblioteca.items.Materials;
+import com.twu.biblioteca.com.twu.biblioteca.items.SystemItem;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -13,7 +14,9 @@ import java.util.Scanner;
  */
 public class Library {
 
-    ArrayList<LibraryItem> books = new ArrayList<LibraryItem>();
+    private ArrayList<LibraryItem> books = new ArrayList<>();
+    private ArrayList<User> users = new ArrayList<>();
+    private User logedInUser = null;
 
     public Library() {
         books.add(new Book("Pretty Monsters", "Jack Schez", "1990"));
@@ -21,6 +24,13 @@ public class Library {
         books.add(new Book("Slurp", "Wahzoo Film", "2003"));
         books.add(new Book("Washer", "Jim Slack", "1890"));
         books.add(new Book("Washer", "TKO", "1830"));
+
+        User testUser = new User("123-1234");
+        testUser.setName("Jackie Willams");
+        testUser.setEmail("washer12@gmail.com");
+        testUser.setPhone("678-234-1234");
+        users.add(testUser);
+
 
     }
 
@@ -127,6 +137,33 @@ public class Library {
                     + toReturn.getCheckoutID() + ")\nThank you for returning the book.");
         }
 
+
+    }
+
+    public String getLogedInUser() {
+        if (logedInUser != null){
+            return logedInUser.getLibNum();
+        }
+        return "";
+    }
+
+    public Boolean login(String id, String pass) {
+        for (User user: users){
+            if (user.getLibNum().equals(id)){
+                if (user.checkPassword(pass)){
+                    logedInUser = user;
+                    System.out.println("Welcome " + user.getName() + "!\n" + "Info:\n" +
+                        "\temail: " + user.getEmail() + "\n\tphone: " + user.getPhone());
+                    return true;
+                }
+                else{
+                    System.out.println("Incorrect Password. Try again.");
+                    return false;
+                }
+            }
+        }
+        System.out.println("Library Number Not Found.");
+        return false;
 
     }
 }

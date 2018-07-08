@@ -29,6 +29,14 @@ public class LibraryTest {
     }
 
     @Test
+    public void loginTest(){
+        newLibrary.login("123-1234", "password123");
+        assertEquals("123-1234", newLibrary.getLogedInUser());
+        assertEquals(false, newLibrary.login("123-1234", "password12"));
+        assertEquals(false, newLibrary.login("123-1235", "password12"));
+    }
+
+    @Test
     public void listBooksTest(){
         ArrayList<LibraryItem> libraryBooks = newLibrary.getBooks();
         newLibrary.listBooks();
