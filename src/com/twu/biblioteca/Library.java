@@ -42,6 +42,23 @@ public class Library {
         System.out.println(bookList);
     }
 
+    private void printMultipleOptions(ArrayList<LibraryItem> found){
+        System.out.println("Here are the items found, please select your book by typing the number of the book");
+        int count = 1;
+        System.out.println("#  Name         Author    Pub. Year    Due Date");
+        for (LibraryItem bk : found) {
+            if (bk.getType() == Materials.BOOK) {
+                Book bkItem = (Book) bk;
+                System.out.println(Integer.toString(count) +":  " + bkItem.getName()
+                        + "    " + bkItem.getAuthor() + "       " + bkItem.getPub()+
+                        "      " + bkItem.getDueDate().get(Calendar.MONTH) + "/" + bkItem.getDueDate().get(Calendar.DAY_OF_MONTH) + "/"+
+                        bkItem.getDueDate().get(Calendar.YEAR));
+            }
+            count++;
+        }
+
+    }
+
     public void checkoutItem(String name){
         ArrayList<LibraryItem> found = new ArrayList<>();
         for (LibraryItem item: books){
@@ -53,16 +70,7 @@ public class Library {
             System.out.println("That book is not available");
         }
         else if (found.size() > 1){
-            System.out.println("Here are the items found, please select your book by typing the number of the book");
-            int count = 1;
-            System.out.println("#  Name         Author    Pub. Year    Due Date");
-            for (LibraryItem bkItem : found){
-                if (bkItem.getType() == Materials.BOOK){
-                    printType(bkItem, Materials.BOOK, count);
-                    count++;
-                }
-
-            }
+            printMultipleOptions(found);
             System.out.print("Selection: ");
             Scanner usrIn = new Scanner(System.in);
             Integer select = usrIn.nextInt();
@@ -73,16 +81,6 @@ public class Library {
         else{
             found.get(0).checkout();
             System.out.println("Thank you! Enjoy the book" );
-        }
-    }
-
-    private void printType(LibraryItem item, Materials type, Integer count){
-        if (type == Materials.BOOK) {
-            Book bk = (Book)item;
-            System.out.println(Integer.toString(count) +":  " + bk.getName()
-                    + "    " + bk.getAuthor() + "       " + bk.getPub()+
-                    "      " + bk.getDueDate().get(Calendar.MONTH) + "/" + bk.getDueDate().get(Calendar.DAY_OF_MONTH) + "/"+
-                    bk.getDueDate().get(Calendar.YEAR));
         }
     }
 
@@ -110,13 +108,7 @@ public class Library {
             }
         }
         if (found.size() > 1){
-            System.out.println("Here are the items found, please select your book by typing the number of the book");
-            int count = 1;
-            System.out.println("#  Name         Author    Pub. Year    Due Date");
-            for (LibraryItem bk : found) {
-                printType(bk, Materials.BOOK, count);
-                count++;
-            }
+            printMultipleOptions(found);
             System.out.print("Selection: ");
             Scanner usrIn = new Scanner(System.in);
             Integer select = usrIn.nextInt();
