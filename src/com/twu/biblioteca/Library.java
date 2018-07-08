@@ -3,7 +3,6 @@ package com.twu.biblioteca;
 import com.twu.biblioteca.com.twu.biblioteca.items.Book;
 import com.twu.biblioteca.com.twu.biblioteca.items.LibraryItem;
 import com.twu.biblioteca.com.twu.biblioteca.items.Materials;
-import com.twu.biblioteca.com.twu.biblioteca.items.SystemItem;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -59,11 +58,7 @@ public class Library {
             System.out.println("#  Name         Author    Pub. Year    Due Date");
             for (LibraryItem bkItem : found){
                 if (bkItem.getType() == Materials.BOOK){
-                    Book bk = (Book) bkItem;
-                    System.out.println(Integer.toString(count) +":  " + bk.getName()
-                            + "    " + bk.getAuthor() + "       " + bk.getPub()+
-                            "      " + bk.getDueDate().get(Calendar.MONTH) + "/" + bk.getDueDate().get(Calendar.DAY_OF_MONTH) + "/"+
-                            bk.getDueDate().get(Calendar.YEAR));
+                    printType(bkItem, Materials.BOOK, count);
                     count++;
                 }
 
@@ -71,15 +66,23 @@ public class Library {
             System.out.print("Selection: ");
             Scanner usrIn = new Scanner(System.in);
             Integer select = usrIn.nextInt();
-            SystemItem foundRtn = (SystemItem) found.get(select -1);
-            foundRtn.checkout();
+            found.get(select -1).checkout();
             System.out.println("Thank you! Enjoy the book" );
 
         }
         else{
-            SystemItem sItem = (SystemItem) found.get(0);
-            sItem.checkout();
+            found.get(0).checkout();
             System.out.println("Thank you! Enjoy the book" );
+        }
+    }
+
+    private void printType(LibraryItem item, Materials type, Integer count){
+        if (type == Materials.BOOK) {
+            Book bk = (Book)item;
+            System.out.println(Integer.toString(count) +":  " + bk.getName()
+                    + "    " + bk.getAuthor() + "       " + bk.getPub()+
+                    "      " + bk.getDueDate().get(Calendar.MONTH) + "/" + bk.getDueDate().get(Calendar.DAY_OF_MONTH) + "/"+
+                    bk.getDueDate().get(Calendar.YEAR));
         }
     }
 
@@ -97,7 +100,7 @@ public class Library {
     }
 
     public void returnWithName(String name){
-        ArrayList<Book> found = new ArrayList<Book>();
+        ArrayList<LibraryItem> found = new ArrayList<>();
         for (LibraryItem item : books){
             if (item.getType() == Materials.BOOK) {
                 Book book = (Book) item;
@@ -110,17 +113,14 @@ public class Library {
             System.out.println("Here are the items found, please select your book by typing the number of the book");
             int count = 1;
             System.out.println("#  Name         Author    Pub. Year    Due Date");
-            for (Book bk : found){
-                System.out.println(Integer.toString(count) +":  " + bk.getName()
-                        + "    " + bk.getAuthor() + "       " + bk.getPub()+
-                "      " + bk.getDueDate().get(Calendar.MONTH) + "/" + bk.getDueDate().get(Calendar.DAY_OF_MONTH) + "/"+
-                        bk.getDueDate().get(Calendar.YEAR));
+            for (LibraryItem bk : found) {
+                printType(bk, Materials.BOOK, count);
                 count++;
             }
             System.out.print("Selection: ");
             Scanner usrIn = new Scanner(System.in);
             Integer select = usrIn.nextInt();
-            Book foundRtn = found.get(select -1);
+            LibraryItem foundRtn = found.get(select -1);
             foundRtn.checkin();
             System.out.println("\nYou have successfully checked in " + foundRtn.getName() + "(ID: "
                     + foundRtn.getCheckoutID() + ")\nThank you for returning the book." );
@@ -129,7 +129,7 @@ public class Library {
             System.out.println("That is not a valid book to return.");
         }
         else{
-            Book toReturn = found.get(0);
+            LibraryItem toReturn = found.get(0);
             toReturn.checkin();
             System.out.println("\nYou have successfully checked in " + toReturn.getName() + "(ID: "
                     + toReturn.getCheckoutID() + ")\nThank you for returning the book.");

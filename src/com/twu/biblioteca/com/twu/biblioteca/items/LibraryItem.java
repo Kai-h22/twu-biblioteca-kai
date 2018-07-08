@@ -6,7 +6,7 @@ import java.util.UUID;
 /**
  * Created by Kai on 7/2/2018.
  */
-public class LibraryItem {
+public abstract class LibraryItem {
 
     private boolean checkedOut;
     private GregorianCalendar dueDate;
@@ -66,4 +66,9 @@ public class LibraryItem {
     public void checkoutItem(){
         this.checkedOut = true;
     }
+
+    public abstract GregorianCalendar checkout();
+
+    public abstract String toString();
+
 }
