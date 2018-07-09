@@ -13,6 +13,7 @@ public abstract class LibraryItem {
     private Materials type;
     private UUID id;
     private String name;
+    private String user;
 
 
     public LibraryItem(Materials type, String name){
@@ -54,8 +55,16 @@ public abstract class LibraryItem {
         return values[0];
     }
 
+    public String getOwner(){
+        return this.user;
+    }
+
     public void changeID(UUID id){
         this.id = id;
+    }
+
+    public void setUser(String user){
+        this.user = user;
     }
 
     public void checkin(){
@@ -67,7 +76,7 @@ public abstract class LibraryItem {
         this.checkedOut = true;
     }
 
-    public abstract GregorianCalendar checkout();
+    public abstract GregorianCalendar checkout(String user);
 
     public abstract String toString();
 

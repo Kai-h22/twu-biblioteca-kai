@@ -53,7 +53,8 @@ public class LibraryTest {
     public void returnWithIdTest(){
 
         Book returning = (Book) newLibrary.getBooks().get(0);
-        returning.checkout();
+        newLibrary.login("123-1234", "password123");
+        returning.checkout("123-1234");
         assertEquals(true, returning.isCheckedout());
         newLibrary.returnWithID(returning.getCheckoutID());
         assertEquals(false, returning.isCheckedout() );
@@ -64,7 +65,8 @@ public class LibraryTest {
     @Test
     public void returnWithNameTest(){
         Book returning = (Book) newLibrary.getBooks().get(0);
-        returning.checkout();
+        newLibrary.login("123-1234", "password123");
+        returning.checkout("123-1234");
         assertEquals(true, returning.isCheckedout());
         newLibrary.returnWithName(returning.getName());
         assertEquals(false, returning.isCheckedout() );
@@ -74,8 +76,9 @@ public class LibraryTest {
     public void returnWithMultipleNameTest(){
         Book returning = (Book) newLibrary.getBooks().get(1);
         Book returning2 = (Book) newLibrary.getBooks().get(2);
-        returning.checkout();
-        returning2.checkout();
+        newLibrary.login("123-1234", "password123");
+        returning.checkout("123-1234");
+        returning2.checkout("123-1234");
         String input =  "1";
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);

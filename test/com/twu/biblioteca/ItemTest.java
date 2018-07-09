@@ -42,4 +42,14 @@ public class ItemTest {
         assertEquals(id, item.getID());
     }
 
+    @Test
+    public void bookTest(){
+        GregorianCalendar currentDate = new GregorianCalendar();
+        int testDate = currentDate.get(Calendar.DAY_OF_YEAR) + 7;
+        item.setUser("123-1234");
+        item.checkout("123-1234");
+        assertEquals(testDate, item.getDueDate().get(Calendar.DAY_OF_YEAR));
+        assertEquals("123-1234", item.getOwner());
+    }
+
 }

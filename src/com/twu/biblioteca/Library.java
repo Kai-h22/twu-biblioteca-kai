@@ -3,7 +3,6 @@ package com.twu.biblioteca;
 import com.twu.biblioteca.com.twu.biblioteca.items.Book;
 import com.twu.biblioteca.com.twu.biblioteca.items.LibraryItem;
 import com.twu.biblioteca.com.twu.biblioteca.items.Materials;
-import com.twu.biblioteca.com.twu.biblioteca.items.SystemItem;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -84,19 +83,19 @@ public class Library {
             System.out.print("Selection: ");
             Scanner usrIn = new Scanner(System.in);
             Integer select = usrIn.nextInt();
-            found.get(select -1).checkout();
+            found.get(select -1).checkout(logedInUser.getLibNum());
             System.out.println("Thank you! Enjoy the book" );
 
         }
         else{
-            found.get(0).checkout();
+            found.get(0).checkout(logedInUser.getLibNum());
             System.out.println("Thank you! Enjoy the book" );
         }
     }
 
     public void returnWithID(String returning){
         for (LibraryItem book : books){
-            if (book.getCheckoutID().equalsIgnoreCase(returning)){
+            if (book.getCheckoutID().equalsIgnoreCase(returning) && book.isCheckedout() && book.getOwner().equals(logedInUser.getLibNum())){
                 book.checkin();
                 System.out.println("\nYou have successfully checked in " + book.getName() + "(ID: "
                         + book.getCheckoutID() + ")\n“Thank you for returning the book.");
@@ -112,7 +111,7 @@ public class Library {
         for (LibraryItem item : books){
             if (item.getType() == Materials.BOOK) {
                 Book book = (Book) item;
-                if (book.getName().equalsIgnoreCase(name) && book.isCheckedout()) {
+                if (book.getName().equalsIgnoreCase(name) && book.isCheckedout() && book.getOwner().equals(logedInUser.getLibNum())) {
                     found.add(book);
                 }
             }

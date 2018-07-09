@@ -23,7 +23,7 @@ public class Book extends LibraryItem{
     }
 
     @Override
-    public GregorianCalendar checkout() {
+    public GregorianCalendar checkout(String user) {
         GregorianCalendar date = new GregorianCalendar();
         date.roll(Calendar.DATE, 7);
         this.setDueDate(date);
@@ -31,6 +31,7 @@ public class Book extends LibraryItem{
                 getName() + " by " + this.author + " Published " + this.year + "\n" );
         System.out.print("\tBelow is the book ID, please save this for book return: \n\t\t" + getCheckoutID() + '\n');
         this.checkoutItem();
+        this.setUser(user);
         return date;
     }
 
