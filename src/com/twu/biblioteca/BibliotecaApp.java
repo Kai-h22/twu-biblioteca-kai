@@ -9,36 +9,62 @@ public class BibliotecaApp {
 
     public static void main(String[] args) {
         Boolean running = true;
+        Boolean asking = true;
+        Boolean starting = true;
+        while (starting){
+            System.out.print("Welcome to Biblioteca!\n");
+            System.out.print("What would you like to do?\n Type the letter of your selected choice\n \tlogin(L)  quit(Q)\n");
+            System.out.print("Selection: ");
 
-        System.out.print("Welcome to Biblioteca!\nPlease login for access\n");
+            String selection = userInput.nextLine();
+            if (selection.equalsIgnoreCase("L")) {
+                while(asking) {
+                    System.out.print("Welcome to Biblioteca!\nPlease login for access\n");
 
-        System.out.print("\tLibrary Number: ");
-        String user = userInput.nextLine();
-        System.out.print("\n");
+                    System.out.print("\tLibrary Number: ");
+                    String user = userInput.nextLine();
+                    System.out.print("\n");
 
-        System.out.print("\tPassword: ");
-        String pass = userInput.nextLine();
-        System.out.print("\n");
+                    System.out.print("\tPassword: ");
+                    String pass = userInput.nextLine();
+                    System.out.print("\n");
 
-        while (running){
-            if (library.login(user, pass)){
-                System.out.print("What would you like to do?\n Type the letter of your selected choice\n \tlist books(L)  quit(Q)\n");
-                System.out.print("Selection: ");
+                    if (library.login(user, pass)) {
+//                        while (running) {
+                            System.out.print("What would you like to do?\n Type the letter of your selected choice\n \tlist books(L)  logout(G)   logout and quit(Q)\n");
+                            System.out.print("Selection: ");
 
-                String selection = userInput.nextLine();
+                            selection = userInput.nextLine();
 
-                if (selection.equalsIgnoreCase("L")){
-                    listBooks();
+                            if (selection.equalsIgnoreCase("L")) {
+                                listBooks();
+                            } else if (selection.equalsIgnoreCase("q")) {
+                                library.logout();
+//                                running = false;
+                                asking = false;
+                                starting = false;
+                            } else if (selection.equalsIgnoreCase("G")) {
+                                library.logout();
+//                                running = false;
+                                asking = false;
+                                System.out.println("Thank you for using Biblioteca!");
+                            } else {
+                                System.out.println("Select a valid option!");
+                            }
+//                        }
+                    }
+//                    else if (selection.equalsIgnoreCase("q")) {
+////                        running = false;
+//                    }
+
                 }
-
-                else if (selection.equalsIgnoreCase("q")){
-                    running = false;
-                }
-                else {
-                    System.out.println("Select a valid option!");
-                }
+                asking = true;
 
             }
+            else if (selection.equalsIgnoreCase("q")) {
+                starting = false;
+            }
+
         }
     }
 
@@ -63,7 +89,7 @@ public class BibliotecaApp {
         Boolean booking = true;
         while (booking){
             library.listBooks();
-            System.out.print("\nWhat Would you like to do?\n\tCheckout(C)  return books(R)  Quit(Q)\n");
+            System.out.print("\nWhat Would you like to do?\n\tCheckout(C)  return books(R)  Logout and Quit(Q)\n");
             System.out.print("Selection: ");
             String bSelection = userInput.nextLine();
             if (bSelection.equalsIgnoreCase("C")){
@@ -73,6 +99,7 @@ public class BibliotecaApp {
                 returnBook();
             }
             else if (bSelection.equalsIgnoreCase("q")){
+                library.logout();
                 booking = false;
             }
             else {
@@ -85,6 +112,5 @@ public class BibliotecaApp {
         System.out.print("What book would you like to check out?\nNmae: ");
         String checkout = userInput.nextLine();
         library.checkoutItem(checkout);
-        return;
     }
 }

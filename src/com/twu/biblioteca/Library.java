@@ -25,10 +25,16 @@ public class Library {
         books.add(new Book("Washer", "TKO", "1830"));
 
         User testUser = new User("123-1234");
-        testUser.setName("Jackie Willams");
+        testUser.setName("Venus Willams");
         testUser.setEmail("washer12@gmail.com");
         testUser.setPhone("678-234-1234");
         users.add(testUser);
+
+        User testUser2 = new User("999-9999");
+        testUser2.setName("Serena Williams");
+        testUser2.setEmail("winner26@gmail.com");
+        testUser2.setPhone("423-431-2349");
+        users.add(testUser2);
 
 
     }
@@ -164,6 +170,8 @@ public class Library {
         return false;
 
     }
+
+    public void logout(){this.logedInUser = null;}
 
 
 }
