@@ -39,6 +39,7 @@ public class UserTest {
 
         assertEquals(false, testUser.setEmail("washer12@.com"));
         assertEquals(false, testUser.setPhone("68-234-1234"));
+
     }
 
     @Test

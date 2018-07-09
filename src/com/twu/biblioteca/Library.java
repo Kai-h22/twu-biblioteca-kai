@@ -152,8 +152,7 @@ public class Library {
             if (user.getLibNum().equals(id)){
                 if (user.checkPassword(pass)){
                     logedInUser = user;
-                    System.out.println("Welcome " + user.getName() + "!\n" + "Info:\n" +
-                        "\temail: " + user.getEmail() + "\n\tphone: " + user.getPhone());
+                    System.out.println("Welcome " + user.getName() + "!\n");
                     return true;
                 }
                 else{
@@ -166,4 +165,6 @@ public class Library {
         return false;
 
     }
+
+
 }

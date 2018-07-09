@@ -9,22 +9,35 @@ public class BibliotecaApp {
 
     public static void main(String[] args) {
         Boolean running = true;
+
+        System.out.print("Welcome to Biblioteca!\nPlease login for access\n");
+
+        System.out.print("\tLibrary Number: ");
+        String user = userInput.nextLine();
+        System.out.print("\n");
+
+        System.out.print("\tPassword: ");
+        String pass = userInput.nextLine();
+        System.out.print("\n");
+
         while (running){
-            System.out.print("Welcome to Biblioteca!\n");
-            System.out.print("What would you like to do?\n Type the letter of your selected choice\n \tlist books(L)  quit(Q)\n");
-            System.out.print("Selection: ");
+            if (library.login(user, pass)){
+                System.out.print("What would you like to do?\n Type the letter of your selected choice\n \tlist books(L)  quit(Q)\n");
+                System.out.print("Selection: ");
 
-            String selection = userInput.nextLine();
+                String selection = userInput.nextLine();
 
-            if (selection.equalsIgnoreCase("L")){
-                listBooks();
-            }
+                if (selection.equalsIgnoreCase("L")){
+                    listBooks();
+                }
 
-            else if (selection.equalsIgnoreCase("q")){
-                running = false;
-            }
-            else {
-                System.out.println("Select a valid option!");
+                else if (selection.equalsIgnoreCase("q")){
+                    running = false;
+                }
+                else {
+                    System.out.println("Select a valid option!");
+                }
+
             }
         }
     }

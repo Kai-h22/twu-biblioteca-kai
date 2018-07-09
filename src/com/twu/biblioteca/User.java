@@ -86,4 +86,9 @@ public class User {
     public String getLibNum() {
         return libNum;
     }
+
+    public void printUserInfo(){
+        System.out.println("Name: " + getName() + "(Library Number: " + getLibNum() + ")\n" + "Info:\n" +
+                "\temail: " + getEmail() + "\n\tphone: " + getPhone());
+    }
 }
