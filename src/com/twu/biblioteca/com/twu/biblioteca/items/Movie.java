@@ -1,4 +1,4 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.com.twu.biblioteca.items;
 
 import com.twu.biblioteca.com.twu.biblioteca.items.LibraryItem;
 import com.twu.biblioteca.com.twu.biblioteca.items.Materials;

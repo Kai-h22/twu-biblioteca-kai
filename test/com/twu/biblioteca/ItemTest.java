@@ -3,6 +3,7 @@ package com.twu.biblioteca;
 import com.twu.biblioteca.com.twu.biblioteca.items.Book;
 import com.twu.biblioteca.com.twu.biblioteca.items.LibraryItem;
 import com.twu.biblioteca.com.twu.biblioteca.items.Materials;
+import com.twu.biblioteca.com.twu.biblioteca.items.Movie;
 import org.junit.Test;
 
 import java.util.Calendar;
