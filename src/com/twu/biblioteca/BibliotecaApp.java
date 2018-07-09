@@ -1,5 +1,7 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.com.twu.biblioteca.items.Materials;
+
 import java.util.Scanner;
 
 public class BibliotecaApp {
@@ -31,14 +33,17 @@ public class BibliotecaApp {
 
                     if (library.login(user, pass)) {
 //                        while (running) {
-                            System.out.print("What would you like to do?\n Type the letter of your selected choice\n \tlist books(L)  logout(G)   logout and quit(Q)\n");
+                            System.out.print("What would you like to do?\n Type the letter of your selected choice\n \tlist books(L)  " +
+                                            "list movies(M)   logout(G)   logout and quit(Q)\n");
                             System.out.print("Selection: ");
 
                             selection = userInput.nextLine();
 
                             if (selection.equalsIgnoreCase("L")) {
                                 listBooks();
-                            } else if (selection.equalsIgnoreCase("q")) {
+                            } else if(selection.equalsIgnoreCase("m")){
+                                listMovies();
+                            }else if (selection.equalsIgnoreCase("q")) {
                                 library.logout();
 //                                running = false;
                                 asking = false;
@@ -48,7 +53,8 @@ public class BibliotecaApp {
 //                                running = false;
                                 asking = false;
                                 System.out.println("Thank you for using Biblioteca!");
-                            } else {
+                            }
+                            else {
                                 System.out.println("Select a valid option!");
                             }
 //                        }
@@ -78,11 +84,41 @@ public class BibliotecaApp {
         if (returning.equalsIgnoreCase("no")){
             System.out.print("Please Type Book Name: ");
             String name = userInput.nextLine();
-            library.returnWithName(name);
+            library.returnWithName(name, Materials.BOOK);
         }
         else{
-            library.returnWithID(returning);
+            library.returnWithID(returning, Materials.BOOK);
         }
+    }
+
+    private static void returnMovie() {
+        System.out.println("Please input the ID number of the movie you are returning, if you cannot" +
+                " find the id, type no");
+        System.out.print("ID: ");
+
+        String returning = userInput.nextLine();
+
+        if (returning.equalsIgnoreCase("no")){
+            System.out.print("Please Type Movie Name: ");
+            String name = userInput.nextLine();
+            library.returnWithName(name, Materials.MOVIE);
+        }
+        else{
+            library.returnWithID(returning, Materials.MOVIE);
+        }
+    }
+
+    private static void checkoutMovie() {
+        System.out.print("What movie would you like to check out?\nName: ");
+        String checkout = userInput.nextLine();
+        library.checkoutItem(checkout, Materials.MOVIE);
+
+    }
+
+    private static void checkoutBook() {
+        System.out.print("What book would you like to check out?\nName: ");
+        String checkout = userInput.nextLine();
+        library.checkoutItem(checkout, Materials.BOOK);
     }
 
     private static void listBooks() {
@@ -108,9 +144,28 @@ public class BibliotecaApp {
         }
     }
 
-    private static void checkoutBook() {
-        System.out.print("What book would you like to check out?\nNmae: ");
-        String checkout = userInput.nextLine();
-        library.checkoutItem(checkout);
+    private static void listMovies() {
+        Boolean booking = true;
+        while (booking){
+            library.listMovies();
+            System.out.print("\nWhat Would you like to do?\n\tCheckout(C)  return movie(R)  Logout and Quit(Q)\n");
+            System.out.print("Selection: ");
+            String bSelection = userInput.nextLine();
+            if (bSelection.equalsIgnoreCase("C")){
+                checkoutMovie();
+            }
+            else if (bSelection.equalsIgnoreCase("R")){
+                returnMovie();
+            }
+            else if (bSelection.equalsIgnoreCase("q")){
+                library.logout();
+                booking = false;
+            }
+            else {
+                System.out.println("Select a valid option!");
+            }
+        }
     }
+
+
 }

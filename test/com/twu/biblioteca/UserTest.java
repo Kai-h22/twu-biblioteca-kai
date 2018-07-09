@@ -1,6 +1,11 @@
 package com.twu.biblioteca;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import static org.junit.Assert.assertEquals;
 
@@ -10,6 +15,17 @@ import static org.junit.Assert.assertEquals;
 public class UserTest {
 
     User testUser = new User("123-1234");
+    private final ByteArrayOutputStream printValue = new ByteArrayOutputStream();
+
+    @Before
+    public void setUp() {
+        System.setOut(new PrintStream(printValue));
+    }
+
+    @After
+    public void cleanUpStreams() {
+        System.setOut(null);
+    }
 
     @Test
     public void passwordTest(){
@@ -47,5 +63,12 @@ public class UserTest {
         assertEquals("123-1234", testUser.getLibNum());
     }
 
+    @Test
+    public void printUserInfo(){
+        testUser.printUserInfo();
+        String test = "Name: " + testUser.getName() + "(Library Number: " + testUser.getLibNum() + ")\n" + "Info:\n" +
+                "\temail: " + testUser.getEmail() + "\n\tphone: " + testUser.getPhone() + "\n";
+        assertEquals(printValue.toString(), test);
+    }
 
 }

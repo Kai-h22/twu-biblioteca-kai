@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.com.twu.biblioteca.items.Book;
 import com.twu.biblioteca.com.twu.biblioteca.items.LibraryItem;
+import com.twu.biblioteca.com.twu.biblioteca.items.Materials;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -56,7 +57,7 @@ public class LibraryTest {
         newLibrary.login("123-1234", "password123");
         returning.checkout("123-1234");
         assertEquals(true, returning.isCheckedout());
-        newLibrary.returnWithID(returning.getCheckoutID());
+        newLibrary.returnWithID(returning.getCheckoutID(), Materials.BOOK);
         assertEquals(false, returning.isCheckedout() );
 
     }
@@ -68,7 +69,7 @@ public class LibraryTest {
         newLibrary.login("123-1234", "password123");
         returning.checkout("123-1234");
         assertEquals(true, returning.isCheckedout());
-        newLibrary.returnWithName(returning.getName());
+        newLibrary.returnWithName(returning.getName(), Materials.BOOK);
         assertEquals(false, returning.isCheckedout() );
     }
 
@@ -82,7 +83,7 @@ public class LibraryTest {
         String input =  "1";
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
-        newLibrary.returnWithName(returning.getName());
+        newLibrary.returnWithName(returning.getName(), Materials.BOOK);
         assertEquals(false, returning.isCheckedout() );
     }
 

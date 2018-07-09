@@ -17,6 +17,7 @@ import static org.junit.Assert.assertEquals;
 public class ItemTest {
 
     private LibraryItem item = new Book("Pretty Monsters", "Jack Schez", "1990");
+    private LibraryItem item2 = new Movie("Die Hard", "IDK", "1990", "3");
 
     @Test
     public void checkedOutTest(){
@@ -50,6 +51,16 @@ public class ItemTest {
         item.checkout("123-1234");
         assertEquals(testDate, item.getDueDate().get(Calendar.DAY_OF_YEAR));
         assertEquals("123-1234", item.getOwner());
+    }
+
+    @Test
+    public void movieTest(){
+        GregorianCalendar currentDate = new GregorianCalendar();
+        int testDate = currentDate.get(Calendar.DAY_OF_YEAR) + 3;
+        item2.setUser("123-1234");
+        item2.checkout("123-1234");
+        assertEquals(testDate, item2.getDueDate().get(Calendar.DAY_OF_YEAR));
+        assertEquals("123-1234", item2.getOwner());
     }
 
 }

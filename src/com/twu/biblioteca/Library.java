@@ -6,6 +6,7 @@ import com.twu.biblioteca.com.twu.biblioteca.items.Materials;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -16,6 +17,7 @@ public class Library {
     private ArrayList<LibraryItem> books = new ArrayList<>();
     private ArrayList<User> users = new ArrayList<>();
     private User logedInUser = null;
+    private Scanner usrIn = new Scanner(System.in);
 
     public Library() {
         books.add(new Book("Pretty Monsters", "Jack Schez", "1990"));
@@ -35,6 +37,12 @@ public class Library {
         testUser2.setEmail("winner26@gmail.com");
         testUser2.setPhone("423-431-2349");
         users.add(testUser2);
+
+        books.add( new Movie("Die Hard", "IDK", "1990", "1"));
+        books.add( new Movie("Die Hard", "IDK", "2003", "Unrated"));
+        books.add( new Movie("Star Wars", "Whomp Masg", "1970", "10"));
+        books.add( new Movie("G.I Joe", "Joe", "2012", "7"));
+        books.add( new Movie("Star Wars", "Jimmy Boi", "1990", "9"));
 
 
     }
@@ -57,10 +65,31 @@ public class Library {
         System.out.println(bookList);
     }
 
-    private void printMultipleOptions(ArrayList<LibraryItem> found){
-        System.out.println("Here are the items found, please select your book by typing the number of the book");
+    public void listMovies(){
+        String movieList = "NAME    "+
+                "DIRECTOR    " + "RELEASE YEAR    RATING\n";
+        for (LibraryItem item: books){
+            if (item.getType() == Materials.MOVIE){
+                Movie x = (Movie) item;
+                if (!x.isCheckedout()){
+                    movieList += x.toString() + "\n";
+                }
+            }
+        }
+        System.out.println(movieList);
+    }
+
+    private void printMultipleOptions(ArrayList<LibraryItem> found, Materials type){
+        System.out.println("Here are the items found, please select your item by typing the number of your selection");
         int count = 1;
-        System.out.println("#  Name         Author    Pub. Year    Due Date");
+
+        if (type == Materials.BOOK){
+            System.out.println("#  Name         Author    Pub. Year    Due Date");
+        }
+        else{
+            System.out.println("#  Name    Director  Release Year   Rating  Due Date");
+        }
+
         for (LibraryItem bk : found) {
             if (bk.getType() == Materials.BOOK) {
                 Book bkItem = (Book) bk;
@@ -69,42 +98,82 @@ public class Library {
                         "      " + bkItem.getDueDate().get(Calendar.MONTH) + "/" + bkItem.getDueDate().get(Calendar.DAY_OF_MONTH) + "/"+
                         bkItem.getDueDate().get(Calendar.YEAR));
             }
+            else{
+                Movie mvItem = (Movie) bk;
+                System.out.println(Integer.toString(count) +": " +mvItem.toString() + "     " + mvItem.getDueDate().get(Calendar.MONTH) + "/" + mvItem.getDueDate().get(Calendar.DAY_OF_MONTH) + "/"+
+                        mvItem.getDueDate().get(Calendar.YEAR));
+            }
             count++;
         }
 
     }
 
-    public void checkoutItem(String name){
+    public void checkoutItem(String name, Materials type){
         ArrayList<LibraryItem> found = new ArrayList<>();
         for (LibraryItem item: books){
-            if (item.getName().equalsIgnoreCase(name) && !item.isCheckedout()){
+            if (item.getName().equalsIgnoreCase(name) && !item.isCheckedout() && item.getType() == type){
                 found.add(item);
             }
         }
         if (found.size() == 0){
-            System.out.println("That book is not available");
+            if (type == Materials.BOOK){
+                System.out.println("That book is not available");
+            }
+            else if (type == Materials.MOVIE){
+                System.out.println("That movie is not available");
+            }
+
         }
         else if (found.size() > 1){
-            printMultipleOptions(found);
+            printMultipleOptions(found, type);
+            Integer select = -1;
             System.out.print("Selection: ");
-            Scanner usrIn = new Scanner(System.in);
-            Integer select = usrIn.nextInt();
-            found.get(select -1).checkout(logedInUser.getLibNum());
-            System.out.println("Thank you! Enjoy the book" );
+            try {
+                select = usrIn.nextInt();
+                if (select > 0 && select <= found.size()){
+                    found.get(select -1).checkout(logedInUser.getLibNum());
+
+                    if (type == Materials.BOOK){
+                        System.out.println("Thank you! Enjoy the book" );
+                    }
+                    else if (type == Materials.MOVIE){
+                        System.out.println("Thank you! Enjoy the movie" );
+                    }
+                }else{
+                    System.out.println("Not a valid selection");
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("Not a valid selection");
+//                    System.out.print(e.getMessage()); //try to find out specific reason.
+            }
+
 
         }
         else{
             found.get(0).checkout(logedInUser.getLibNum());
-            System.out.println("Thank you! Enjoy the book" );
+            if (type == Materials.BOOK){
+                System.out.println("Thank you! Enjoy the book" );
+            }
+            else if (type == Materials.MOVIE){
+                System.out.println("Thank you! Enjoy the movie" );
+            }
         }
     }
 
-    public void returnWithID(String returning){
+    public void returnWithID(String returning, Materials type){
         for (LibraryItem book : books){
-            if (book.getCheckoutID().equalsIgnoreCase(returning) && book.isCheckedout() && book.getOwner().equals(logedInUser.getLibNum())){
+            if (book.getType() == type && book.getCheckoutID().equalsIgnoreCase(returning) && book.isCheckedout() && book.getOwner().equals(logedInUser.getLibNum())){
                 book.checkin();
-                System.out.println("\nYou have successfully checked in " + book.getName() + "(ID: "
-                        + book.getCheckoutID() + ")\n“Thank you for returning the book.");
+                if (type == Materials.BOOK){
+                    System.out.println("\nYou have successfully checked in " + book.getName() + "(ID: "
+                            + book.getCheckoutID() + ")\n“Thank you for returning the book.");
+                }
+                else if (type == Materials.MOVIE){
+                    System.out.println("\nYou have successfully checked in " + book.getName() + "(ID: "
+                            + book.getCheckoutID() + ")\n“Thank you for returning the movie.");
+                }
+
                 return;
             }
         }
@@ -112,25 +181,48 @@ public class Library {
 
     }
 
-    public void returnWithName(String name){
+    public void returnWithName(String name, Materials type){
         ArrayList<LibraryItem> found = new ArrayList<>();
         for (LibraryItem item : books){
-            if (item.getType() == Materials.BOOK) {
+            if (item.getType() == type && item.getType() == Materials.BOOK) {
                 Book book = (Book) item;
                 if (book.getName().equalsIgnoreCase(name) && book.isCheckedout() && book.getOwner().equals(logedInUser.getLibNum())) {
                     found.add(book);
                 }
             }
+            else if (item.getType() == type && item.getType() == Materials.MOVIE) {
+                Movie movie = (Movie) item;
+                if (movie.getName().equalsIgnoreCase(name) && movie.isCheckedout() && movie.getOwner().equals(logedInUser.getLibNum())) {
+                    found.add(movie);
+                }
+            }
         }
         if (found.size() > 1){
-            printMultipleOptions(found);
-            System.out.print("Selection: ");
-            Scanner usrIn = new Scanner(System.in);
-            Integer select = usrIn.nextInt();
-            LibraryItem foundRtn = found.get(select -1);
-            foundRtn.checkin();
-            System.out.println("\nYou have successfully checked in " + foundRtn.getName() + "(ID: "
-                    + foundRtn.getCheckoutID() + ")\nThank you for returning the book." );
+            printMultipleOptions(found, type);
+            Integer select = -1;
+
+
+            try {
+                select = usrIn.nextInt();
+                if (select > 0 && select <= found.size()){
+                    LibraryItem foundRtn = found.get(select -1);
+                    foundRtn.checkin();
+                    if (type == Materials.BOOK){
+                        System.out.println("\nYou have successfully checked in " + foundRtn.getName() + "(ID: "
+                                + foundRtn.getCheckoutID() + ")\nThank you for returning the book." );
+                    }
+                    else if (type == Materials.MOVIE){
+                        System.out.println("\nYou have successfully checked in " + foundRtn.getName() + "(ID: "
+                                + foundRtn.getCheckoutID() + ")\nThank you for returning the Movie." );
+                    }
+                }else{
+                    System.out.println("Not a valid selection");
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("Not a valid selection");
+//                    System.out.print(e.getMessage()); //try to find out specific reason.
+            }
         }
         else if (found.size() == 0){
             System.out.println("That is not a valid book to return.");
@@ -138,8 +230,14 @@ public class Library {
         else{
             LibraryItem toReturn = found.get(0);
             toReturn.checkin();
-            System.out.println("\nYou have successfully checked in " + toReturn.getName() + "(ID: "
-                    + toReturn.getCheckoutID() + ")\nThank you for returning the book.");
+            if (type == Materials.BOOK){
+                System.out.println("\nYou have successfully checked in " + toReturn.getName() + "(ID: "
+                        + toReturn.getCheckoutID() + ")\nThank you for returning the book." );
+            }
+            else if (type == Materials.MOVIE){
+                System.out.println("\nYou have successfully checked in " + toReturn.getName() + "(ID: "
+                        + toReturn.getCheckoutID() + ")\nThank you for returning the Movie." );
+            }
         }
 
 
